@@ -1,0 +1,52 @@
+{
+  "name": "stfrd",
+  "version": "1.0.0",
+  "description": "Stfrd Prismic &amp; Nuxtjs website.",
+  "author": "Devan Flaherty",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint",
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "dependencies": {
+    "@nuxtjs/google-analytics": "^2.0.2",
+    "@nuxtjs/pwa": "^2.0.5",
+    "axios": "^0.17.1",
+    "bulma": "^0.6.2",
+    "express": "^4.15.3",
+    "gsap": "^1.20.3",
+    "js-cookie": "^2.2.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
+    "nuxt": "^1.1.1",
+    "prismic-dom": "^2.0.6",
+    "prismic-javascript": "^1.5.0-beta.1",
+    "prismic-toolbar": "^0.0.8",
+    "sass-loader": "^6.0.6",
+    "scrollreveal": "^3.3.6",
+    "source-map-support": "^0.5.1",
+    "swiper": "^4.1.0",
+    "vue-lazyload": "^1.1.4",
+    "webpack-jarvis": "^0.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "cross-env": "^5.0.1",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "nodemon": "^1.11.0"
+  }
+}

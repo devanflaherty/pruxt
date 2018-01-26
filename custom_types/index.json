@@ -1,0 +1,32 @@
+[{
+  "id": "home",
+  "name": "Home",
+  "repeatable": false,
+  "value": "home.json"
+}, {
+  "id": "page",
+  "name": "Page",
+  "repeatable": true,
+  "value": "page.json"
+}, {
+  "id": "work_post",
+  "name": "Work Post",
+  "repeatable": true,
+  "value": "work_post.json"
+}, {
+  "id": "blog_post",
+  "name": "Blog Post",
+  "repeatable": true,
+  "value": "blog_post.json"
+}, {
+  "id": "team_post",
+  "name": "Team Post",
+  "repeatable": true,
+  "value": "team_post.json"
+}, {
+  "id": "menu",
+  "name": "Menu",
+  "repeatable": true,
+  "value": "menu.json"
+}
+]

@@ -1,0 +1,112 @@
+{
+  "Menu": {
+    "main_menu" : {
+      "config" : {
+        "fields" : {
+          "label" : {
+            "config" : {
+              "label" : "Link Label"
+            },
+            "type" : "Text"
+          },
+          "url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
+            }
+          }
+        },
+        "label" : "Main Menu"
+      },
+      "type" : "Group"
+    }
+  },
+  "Footer" : {
+    "footer_menu" : {
+      "config" : {
+        "fields" : {
+          "label" : {
+            "config" : {
+              "label" : "Link Label"
+            },
+            "type" : "Text"
+          },
+          "url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
+            }
+          }
+        },
+        "label" : "Footer Menu"
+      },
+      "type" : "Group"
+    },
+    "footer_widget" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading5, heading6, paragraph, strong, em, hyperlink",
+        "label" : "Footer Widget"
+      }
+    }
+  },
+  "Social" : {
+    "social" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "social_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Social URL",
+              "placeholder" : "https://",
+              "allowTargetBlank" : true
+            }
+          },
+          "social_icon" : {
+            "type" : "Text",
+            "config" : {
+              "label" : "Social Icon",
+              "placeholder" : "Icon Class from Font Awesome (fa-twitter)"
+            }
+          }
+        },
+        "label" : "Social"
+      }
+    }
+  },
+  "Contact": {
+    "contact_email" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Contact Email",
+        "placeholder" : "info@yourEmail.com"
+      }
+    }
+  },
+  "SEO" : {
+    "meta_title" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Meta-Title"
+      }
+    },
+    "meta_description" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Meta-Description"
+      }
+    },
+    "card_image" : {
+      "type" : "Image",
+      "config" : {
+        "constraint" : {
+          "width" : 1200,
+          "height:" : 800
+        },
+        "thumbnails" : [ ],
+        "label" : "Card Image"
+      }
+    }
+  }
+}

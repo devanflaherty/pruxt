@@ -1,0 +1,220 @@
+{
+  "Body" : {
+    "title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading1",
+        "label" : "Title"
+      }
+    },
+    "uid" : {
+      "config" : {
+        "label" : "Slug"
+      },
+      "type" : "UID"
+    },
+    "hero_headline" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading1",
+        "label" : "Hero Headline"
+      }
+    },
+    "hero_video" : {
+      "type" : "Embed",
+      "config" : {
+        "label" : "Hero Video"
+      }
+    }
+  },
+  "Solutions" : {
+    "solutions_headline" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading2, heading3",
+        "label" : "Solutions Headline",
+        "placeholder" : "Problem Meets Solution"
+      }
+    },
+    "solutions" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "solution_icon" : {
+            "type" : "Image",
+            "config" : {
+              "constraint" : { },
+              "thumbnails" : [ ],
+              "label" : "Solution Icon"
+            }
+          },
+          "solution_title" : {
+            "type" : "Text",
+            "config" : {
+              "label" : "Solution Title"
+            }
+          },
+          "solution_sub-title" : {
+            "type" : "Text",
+            "config" : {
+              "label" : "Solution Sub-Title"
+            }
+          },
+          "solution_description" : {
+            "type" : "StructuredText",
+            "config" : {
+              "multi" : "paragraph, strong, em, list-item, o-list-item, o-list-item",
+              "label" : "Solution Description"
+            }
+          },
+          "linked_projects" : {
+            "type" : "StructuredText",
+            "config" : {
+              "multi" : "paragraph, strong, em, hyperlink",
+              "label" : "Linked Projects"
+            }
+          }
+        },
+        "label" : "Solutions"
+      }
+    }
+  },
+  "Approach" : {
+    "approach_image" : {
+      "type" : "Image",
+      "config" : {
+        "constraint" : {
+          "width" : null
+        },
+        "thumbnails" : [ {
+          "name" : "placeholder",
+          "width" : 100,
+          "height" : null
+        }, {
+          "name" : "large",
+          "width" : 1600,
+          "height" : null
+        } ],
+        "label" : "Approach Image"
+      }
+    },
+    "approach_headline" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "heading2",
+        "label" : "Approach Headline",
+        "placeholder" : "E.G. The Problem"
+      }
+    },
+    "approach_text" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph, preformatted, heading3, heading4, heading5, heading6, strong, em, hyperlink, list-item, o-list-item, o-list-item",
+        "label" : "text",
+        "placeholder" : "Simple full-width rich-text field."
+      }
+    },
+    "approach_button_link" : {
+      "type" : "Link",
+      "config" : {
+        "label" : "Button Link"
+      }
+    },
+    "approach_button_label" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Button Label"
+      }
+    },
+    "approach_color" : {
+      "type" : "Color",
+      "config" : {
+        "label" : "Approach Color"
+      }
+    }
+  },
+  "Work" : {
+    "featured_work" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "work_post" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "document",
+              "customtypes" : [ "work" ],
+              "label" : "Work Post"
+            }
+          }
+        },
+        "label" : "Featured Work"
+      }
+    }
+  },
+  "Clients" : {
+    "client_headline" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading2, heading3",
+        "label" : "Client Headline"
+      }
+    },
+    "clients" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "height" : {
+            "type" : "Text",
+            "config" : {
+              "label" : "height"
+            }
+          },
+          "logo" : {
+            "type" : "Image",
+            "config" : {
+              "constraint" : {
+                "width" : 400
+              },
+              "thumbnails" : [ ],
+              "label" : "logo"
+            }
+          }
+        },
+        "label" : "Clients"
+      }
+    }
+  },
+  "next" : {
+    "next_label" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Next Label"
+      }
+    },
+    "next_pre_heading" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Next Pre-Heading"
+      }
+    },
+    "next_link" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "document",
+        "label" : "Next to Link"
+      }
+    },
+    "next_front_color" : {
+      "type" : "Color",
+      "config" : {
+        "label" : "Front Color"
+      }
+    },
+    "next_back_color" : {
+      "type" : "Color",
+      "config" : {
+        "label" : "Back Color"
+      }
+    }
+  }
+}

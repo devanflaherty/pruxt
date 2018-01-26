@@ -1,0 +1,10 @@
+@import "settings";
+@import "~bulma/sass/utilities/mixins";
+
+@mixin autoAlpha($opacity: 1, $visibility: visible) {
+  @if $opacity == "0" {
+    $visibility: hidden;
+  }
+  opacity: $opacity;
+  visibility: $visibility;
+}

@@ -1,0 +1,97 @@
+<template>
+  <div id="blogArchive" class="page blogArchive" :class="contrast" v-show="!loading">
+
+    <blogTemplate :page="page" />
+    
+  </div>
+</template>
+
+<script>
+import blogTemplate from '~/components/pageTemplates/blog'
+
+export default {
+  name: 'blogPage',
+  // transition: {
+  //   name: 'page',
+  //   mode: 'out-in',
+  //   css: false,
+  //   beforeEnter,
+  //   enter,
+  //   leave
+  // },
+  head () {
+    return {
+      title: this.seoTitle,
+      meta: [
+        { hid: 'description', name: 'description', content: this.seoDesc },
+        { hid: 'og:url', property: 'og:url', content: this.seoUrl },
+        { hid: 'og:image', property: 'og:image', content: this.seoImage },
+        { hid: 'og:title', property: 'og:title', content: this.seoTitle },
+        { hid: 'og:description', property: 'og:description', content: this.seoDesc },
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'twitter:domain', name: 'twitter:domain', value: this.seoUrl },
+        { hid: 'twitter:title', name: 'twitter:title', value: this.seoTitle },
+        { hid: 'twitter:description', name: 'twitter:description', value: this.seoDesc },
+        { hid: 'twitter:image', name: 'twitter:image', content: this.seoImage },
+        { hid: 'twitter:url', name: 'twitter:url', value: this.seoUrl }
+      ],
+      link: [
+        { hid: 'image_src', rel: 'image_src', href: this.seoImage }
+      ]
+    }
+  },
+  components: {
+    blogTemplate
+  },
+  async asyncData ({ app, params, error, store }) {
+    let page = await store.dispatch('page/getPage', 'blog')
+    // Store Work in Store
+    await store.dispatch('blog/getBlog')
+
+    return {
+      document: page,
+      page: page.data
+    }
+  },
+  computed: {
+    seoTitle () {
+      if (this.page.meta_title > 0) {
+        return this.page.meta_title
+      } else {
+        return this.$prismic.asText(this.page.title)
+      }
+    },
+    seoDesc () {
+      if (this.page.meta_description) return this.page.meta_description
+      return this.$prismic.asText(this.page.excerpt)
+    },
+    seoImage () {
+      if (this.page.card_image) return this.page.card_image.url
+      return this.page.feature_image.large.url
+    },
+    seoUrl () {
+      return 'https://stfrd.com' + this.$route.fullPath
+    }
+  },
+  created () {
+    this.$store.dispatch('site/toggleLoading', true)
+  },
+  beforeMount () {
+    this.setColors(this.page.page_color, this.page.primary_color, this.page.secondary_color)
+  },
+  mounted () {
+    if (this.document) {
+      this.$store.dispatch('site/toggleNavVis', true)
+      this.$store.dispatch('site/toggleLoading', false)
+
+      this.$prismic.initApi().then(api => {
+        api.toolbar()
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>
+
