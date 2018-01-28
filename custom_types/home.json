@@ -20,6 +20,20 @@
         "label" : "Hero Headline"
       }
     },
+    "hero_image" : {
+      "type" : "Image",
+      "config" : {
+        "constraint" : {
+          "width" : null
+        },
+        "thumbnails" : [ {
+          "name" : "large",
+          "width" : 1600,
+          "height" : null
+        } ],
+        "label" : "Hero Image"
+      }
+    },
     "hero_video" : {
       "type" : "Embed",
       "config" : {
@@ -184,7 +198,7 @@
       }
     }
   },
-  "next" : {
+  "Next" : {
     "next_label" : {
       "type" : "Text",
       "config" : {

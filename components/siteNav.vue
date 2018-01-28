@@ -1,6 +1,7 @@
 <template>
 <nav class="navbar is-transparent">
   <transition name="nav-in" appear>
+    {{mainMenu}}
     <div class="navbar-brand" v-if="mainMenu && navVis">
       <div class="navbar-item" >
         Logo
@@ -16,8 +17,7 @@
     <div id="navMenu" class="navbar-menu" v-if="breakpoint >= 3 && navVis">
       <div class="navbar-end" v-if="mobileNav || breakpoint > 2">
         <div class="navbar-item" v-for="(link, index) in mainMenu" :key="index">
-          <nuxt-link v-if="link.url.link_type === 'Document'" :to="$prismic.asLink(link.url)" :style="`color: ${primaryColor}!important`">{{link.label}}</nuxt-link>
-          <a v-else :href="$prismic.asLink(link.url)">{{link.label}}</a>
+          <prismicLink :link="link.url">{{link.label}}</prismicLink>
         </div>
       </div>
     </div>
@@ -98,3 +98,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.navbar {
+  background: none;
+}
+</style>

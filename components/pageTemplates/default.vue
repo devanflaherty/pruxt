@@ -11,7 +11,7 @@
     </div>
 
     <div class="container" v-if="page.content.length > 0">
-      <div class="rich-text"
+      <div class="content"
         v-html="$prismic.asHtml(page.content)"
         v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
     </div>

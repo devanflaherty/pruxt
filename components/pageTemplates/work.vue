@@ -1,19 +1,17 @@
 <template>
-  <section id="featuredWork" class="workPosts">
-    <div class="workPosts__cards">
-      <workCard v-for="(post, index) in posts.results" :key="index" :post="post"/>
-    </div>
+  <section id="workPage" class="workPosts">
+    <workList :work="posts.results" />
   </section>
 </template>
 
 <script>
-import workCard from '~/components/work/workCard'
+import workList from '~/components/work/workList'
 import {mapGetters} from 'vuex'
 
 export default {
   props: ['page'],
   components: {
-    workCard
+    workList
   },
   computed: {
     ...mapGetters('work', ['posts'])

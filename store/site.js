@@ -28,7 +28,7 @@ export const getters = {
     return state.primaryColor
   },
   secondaryColor: state => {
-    return state.backgroundColor
+    return state.secondaryColor
   }
 }
 

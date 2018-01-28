@@ -6,7 +6,7 @@
         <div class="column is-5 slice__highlight__textColumn" :class="textOrder">
           <div class="slice__highlight__textColumn__body"
             v-scroll-reveal="{duration: 2000, scale: 0, distance: '60px', delay: 250}">
-            <div class="slice__highlight__textColumn__body__content rich-text" v-html="$prismic.asHtml(highlight.highlight_body)"></div>
+            <div class="slice__highlight__textColumn__body__content content" v-html="$prismic.asHtml(highlight.highlight_body)"></div>
           </div>
         </div>
 
@@ -74,7 +74,7 @@ export default {
         @include mobile() {
           padding: 0rem;
         }
-        &.rich-text {
+        &.content {
           width: 100%;
         }
       }

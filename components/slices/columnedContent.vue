@@ -9,7 +9,7 @@
           :class="[offset(column.offset), layout(column.layout), mobileHide(column.mobile_hide)]" 
           v-for="(column, index) in slice.items" :key="index"
           v-scroll-reveal="{duration: 2000, scale: 0, distance: '60px', delay: index * 250}">
-            <div v-if="column.content_body.length > 0" class="content-body rich-text" :class="textSize(column.p_text_size)" v-html="$prismic.asHtml(column.content_body)"></div>
+            <div v-if="column.content_body.length > 0" class="content" :class="textSize(column.p_text_size)" v-html="$prismic.asHtml(column.content_body)"></div>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "~assets/styles/mixins";
 .slice {
   &__columnedContent {
@@ -75,6 +75,14 @@ export default {
     }
     &__headline {
       margin-bottom: 2rem;
+    }
+
+    &__column {
+      .content {
+        img {
+          width: 100%;
+        }
+      }
     }
   }
 }

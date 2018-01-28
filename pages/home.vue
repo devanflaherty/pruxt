@@ -1,13 +1,18 @@
 <template>
   <section id="home" class="page">
-
+    <pageHeader :headline="home.hero_headline" :heroImage="home.hero_image" />
     
     
   </section>
 </template>
 
 <script>
+import pageHeader from '~/components/pageHeader'
+
 export default {
+  components: {
+    pageHeader
+  },
   async asyncData ({ store, error }) {
     try {
       let home = await store.dispatch('page/getHome')

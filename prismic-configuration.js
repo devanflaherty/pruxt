@@ -7,14 +7,17 @@ export default {
 
   linkResolver (doc) {
     // Define the url depending on the document type
-    if (doc.type === 'pages') {
-      return '/' + doc.uid
-    }
+    if (doc.type === 'page') { return '/' + doc.uid }
+    if (doc.type === 'work_post') { return '/work' + doc.uid }
+    if (doc.type === 'blog_post') { return '/blog' + doc.uid }
     // Default to homepage
     return '/'
   },
   htmlSerializer (element, content, children) {
     switch (element.type) {
+      case Elements.heading1: return `<h1 class="title">${children.join('')}</h1>`
+      case Elements.heading2: return `<h2 class="title">${children.join('')}</h2>`
+      case Elements.heading3: return `<h3 class="title">${children.join('')}</h3>`
       // Don't wrap images in a <p> tag
       case Elements.image:
         return '<img src="' + element.url + '" alt="' + element.alt + '">'

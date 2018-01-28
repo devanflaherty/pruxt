@@ -3,7 +3,6 @@ import Prismic from 'prismic-javascript'
 import PrismicConfig from '~/prismic-configuration'
 import PrismicDOM from 'prismic-dom'
 import PrismicToolbar from 'prismic-toolbar'
-import moment from 'moment'
 
 export default (ctx, inject) => {
   inject('prismic', new Vue({
@@ -34,11 +33,7 @@ export default (ctx, inject) => {
       asDate (date, format) {
         if (date) {
           let d = this.prismicDOM.Date(date)
-          if (format) {
-            return moment(d).format(format)
-          } else {
-            return moment(d).format('MMM Do YY')
-          }
+          return d
         }
       },
       initApi (req) {

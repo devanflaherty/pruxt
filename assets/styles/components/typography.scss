@@ -1,11 +1,25 @@
-h2, h2.title {
+h1.title {
   font-size: 4rem;
   line-height: 1;
-  font-weight: 300;
+  font-weight: 700;
   position: relative;
-  color: #20242c;
+  color: $white;
   @include mobile() {
     font-size: 2.5rem;
+  }
+}
+h2.title {
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 600;
+  position: relative;
+  color: $black;
+  margin-bottom: 6rem!important;
+  strong {
+    font-weight: 800;
+  }
+  @include mobile() {
+    font-size: 2rem;
   }
 }
 
@@ -23,12 +37,32 @@ h2, h2.title {
   }
 }
 
-.rich-text, .content {
+.content {
   > *:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0!important;
+  }
+  h2, h3, h4, h5, h6 {
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 2.5rem;
+    line-height: 1;
+    position: relative;
+    color: $black;
+    margin-bottom: 3rem!important;
+    strong {
+      font-weight: 800;
+    }
+    @include mobile() {
+      font-size: 1.5rem;
+    }
+  }
+  h4 {
+    text-indent: -1.5rem;
   }
   p {
     margin-bottom: 1.125rem;
+    line-height: 1.75;
   }
   ul {
     list-style-type: disc;

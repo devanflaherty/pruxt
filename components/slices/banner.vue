@@ -7,7 +7,7 @@
       <h1 class="title slice__banner__overlay__title has-text-white" v-if="banner.title_of_banner.length > 0">
         {{$prismic.asText(banner.title_of_banner)}}
       </h1>
-      <div class="rich-text slice__banner__overlay__text" v-html="$prismic.asHtml(banner.description)" v-if="banner.description.length > 0"></div>
+      <div class="content slice__banner__overlay__text" v-html="$prismic.asHtml(banner.description)" v-if="banner.description.length > 0"></div>
       <a class="button slice__banner__overlay__button" :href="$prismic.asLink(banner.button_link)" v-if="banner.button_link.length > 0">{{$prismic.asText(banner.button_label)}}</a>
     </div>
   </div>

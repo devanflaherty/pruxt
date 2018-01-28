@@ -20,3 +20,10 @@ Vue.component('blurLoader', blurLoader)
 // Component will show caption over image on hover
 import imageCaption from '~/components/utilities/imageCaption'
 Vue.component('imageCaption', imageCaption)
+
+// Link Helper Component
+// Using Nuxt Link will resolve to a local route
+// So we check if the link from prismic is a Document or URL
+// And we return the correct template
+import prismicLink from '~/components/utilities/prismicLink'
+Vue.component('prismicLink', prismicLink)

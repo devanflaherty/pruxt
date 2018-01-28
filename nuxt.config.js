@@ -1,5 +1,4 @@
 const pkg = require('./package')
-const Jarvis = require('webpack-jarvis')
 
 let url = 'https://stfrd.com'
 let title = pkg.name
@@ -111,7 +110,6 @@ module.exports = {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
-        config.plugins.push(new Jarvis())
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,

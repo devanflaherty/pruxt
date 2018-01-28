@@ -1,7 +1,7 @@
 <template>
   <article class="section slice__richText">
     <div class="container">
-      <div class="rich-text content" :class="textSize" v-html="$prismic.asHtml(richText.text)"
+      <div class="content" :class="textSize" v-html="$prismic.asHtml(richText.text)"
         v-scroll-reveal="{distance: '100px'}"></div>
     </div>
   </article>

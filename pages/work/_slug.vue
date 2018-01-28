@@ -21,7 +21,7 @@
 
             <div class="columns">
               <div class="column is-6">
-                <div class="work-approach rich-text"
+                <div class="work-approach content"
                   v-if="entry.approach.length > 0"
                   v-html="$prismic.asHtml(entry.approach)"
                   v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
