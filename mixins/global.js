@@ -5,9 +5,12 @@ Vue.mixin({
   computed: {
     // No need to request these on each component
     // They are now globally available
-    ...mapGetters('site', ['primaryColor', 'secondaryColor', 'pageColor', 'loading', 'navVis'])
+    ...mapGetters('site', ['primaryColor', 'secondaryColor', 'pageColor', 'breakpoint', 'loading', 'navVis'])
   },
   methods: {
+    isOdd (num) {
+      return num % 2
+    },
     setColors (pageColor, primary, secondary) {
       this.setPageContrast(pageColor)
       this.$store.dispatch('site/setPageColor', pageColor)

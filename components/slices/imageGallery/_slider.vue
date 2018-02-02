@@ -6,14 +6,12 @@
       <div class="swiper-wrapper slice__gallery__container__wrapper">
         <div class="swiper-slide slice__gallery__container__wrapper__slide" v-for="(slide, index) in slides" :key="index">
           
-          <div data-swiper-parallax="25%" class="slice__gallery__container__wrapper__slide__image" :style="`background-image: url(${slide.image.large.url})`"></div>
+          <div data-swiper-parallax="25%" class="slice__gallery__container__wrapper__slide__image" :style="`background-image: url(${slide.gallery_image.large.url})`">
+            {{slides[activeSlide].slide_title}}/
+            {{slides[activeSlide].slide_caption}}
+          </div>
 
         </div>
-      </div>
-
-      <div class="slice__gallery__container__details">
-        {{slides[activeSlide].slide_title}}/
-        {{slides[activeSlide].slide_caption}}
       </div>
     
       <!-- If we need navigation buttons -->
@@ -178,43 +176,6 @@ export default {
         visibility: visible;
         transform: translate3d(0,0,0)
       }
-    }
-  }
-}
-
-
-.swiper-container {
-  height: 0;
-  padding-top: 56.25%;
-  display: flex;
-  .swiper-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    .swiper-slide {
-      flex: 1 0 100%;
-      position: relative;
-      overflow: hidden;
-      .container {
-        @include touch () {
-          margin: 0;
-        }
-      }
-      .slide-img {
-        height: 100%;
-        width: 100%;
-        background-size: cover!important;
-        background-position: center;
-      }
-    }
-  }
-  &:hover {
-    .swiper-navigation {
-      opacity: 1;
-      visibility: visible;
-      transform: translate3d(0,0,0)
     }
   }
 }

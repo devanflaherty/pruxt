@@ -86,7 +86,7 @@ export default {
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 2px;
-      opacity: 0.66;
+      opacity: 0.5;
     }
   }
 }

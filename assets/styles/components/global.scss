@@ -1,0 +1,28 @@
+.is-flex {
+  display: flex;
+  &--middle {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.button {
+  &.is-styled {
+    padding: 1.25rem 2.25rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+.lazy {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.lazy[lazy=error] {
+  border: 1px solid gray;
+}
+.lazy[lazy=loaded] {
+  visibility: visible;
+  opacity: 1;
+}

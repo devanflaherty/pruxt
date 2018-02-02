@@ -1,7 +1,7 @@
 <template>
   <div id="workArchive" class="page workArchive" :class="contrast" v-show="!loading">
 
-    <defaultTemplate :page="page"/>
+    <contentTemplate :page="page"/>
 
     <workTemplate :page="page" />
     
@@ -9,19 +9,20 @@
 </template>
 
 <script>
-import defaultTemplate from '~/components/pageTemplates/default'
-import workTemplate from '~/components/pageTemplates/work'
+import contentTemplate from '~/components/pagePartials/_content'
+import workTemplate from '~/components/pagePartials/work'
+import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
   name: 'workPage',
-  // transition: {
-  //   name: 'page',
-  //   mode: 'out-in',
-  //   css: false,
-  //   beforeEnter,
-  //   enter,
-  //   leave
-  // },
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    css: false,
+    beforeEnter,
+    enter,
+    leave
+  },
   head () {
     return {
       title: this.seoTitle,
@@ -44,7 +45,7 @@ export default {
     }
   },
   components: {
-    defaultTemplate,
+    contentTemplate,
     workTemplate
   },
   async asyncData ({ app, params, error, store }) {
@@ -59,7 +60,7 @@ export default {
         template: page.data.page_template
       }
     } catch (err) {
-      error({statusCode: 404, message: `The page you are looking for does not exist. Please add a 'page' with the uid of "work". `, err: err})
+      error({statusCode: 404, message: `The page you are looking for does not exist. Please add a 'page' with the uid of "work". Don't forget to change this error!`, err: err})
     }
   },
   computed: {
@@ -87,9 +88,6 @@ export default {
     seoUrl () {
       return 'https://stfrd.com' + this.$route.fullPath
     }
-  },
-  created () {
-    this.$store.dispatch('site/toggleLoading', true)
   },
   beforeMount () {
     this.setColors(this.page.page_color, this.page.primary_color, this.page.secondary_color)

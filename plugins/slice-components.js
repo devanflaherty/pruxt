@@ -31,3 +31,11 @@ Vue.component('richText', richText)
 // Quote
 import quote from '~/components/slices/quote'
 Vue.component('quote', quote)
+
+// Multi Image Showcase
+import multiImageShowcase from '~/components/slices/multiImageShowcase'
+Vue.component('multiImageShowcase', multiImageShowcase)
+
+// Image Showcase
+import imageShowcase from '~/components/slices/imageShowcase'
+Vue.component('imageShowcase', imageShowcase)

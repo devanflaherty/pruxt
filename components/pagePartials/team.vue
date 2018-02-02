@@ -3,8 +3,8 @@
     <div class="container">
       <h2 class="title teamPosts__title"><strong>Our Team</strong></h2>
       <!-- teamPosts__cards -->
-      <div class="teamPosts__cards columns is-multiline" v-if="posts.results.length > 0">
-        <teamCard class="column is-4" :reveal="reveal" v-for="(post, index) in leadership" :key="index" :post="post"/>
+      <div class="teamPosts__cards" v-if="posts.results.length > 0">
+        <teamCard :reveal="reveal" v-for="(post, index) in leadership" :key="index" :post="post" :class="{'align-right': isOdd(index)}"/>
       </div>
       <!-- close teamPosts__cards -->
     </div>

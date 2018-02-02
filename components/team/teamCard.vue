@@ -1,14 +1,22 @@
 <template>
-  <article class="teamCard">
-    <div class="teamCard__fill" :style="`background-color: ${entry.primary_color}`">
-      <span class="teamCard__fill__position">Founder</span>
+  <article class="teamMember columns">
+    <div class="column is-5">
+      <div class="teamCard">
+        <div class="teamCard__fill" :style="`background-color: ${entry.primary_color}`">
+          <span class="teamCard__fill__position">Founder</span>
+        </div>
+
+        <div class="teamCard__thumb">
+          <div class="teamCard__thumb__image" :style="`background-color: ${entry.secondary_color}`" :class="{'teamCard__thumb__image--masked' : !reveal, 'teamCard__thumb__image--visible' : reveal}">
+            <img :src="entry.member_avatar.large.url" width="640" height="960" />
+          </div>
+          <h4 class="teamCard__thumb__name">— {{$prismic.asText(entry.member_name)}}</h4>
+        </div>
+      </div>
     </div>
 
-    <div class="teamCard__thumb">
-      <div class="teamCard__thumb__image" :style="`background-color: ${entry.secondary_color}`" :class="{'teamCard__thumb__image--masked' : !reveal, 'teamCard__thumb__image--visible' : reveal}">
-        <img :src="entry.member_avatar.large.url" width="640" height="960" />
-      </div>
-      <h4 class="teamCard__thumb__name">— {{$prismic.asText(entry.member_name)}}</h4>
+    <div class="column teamMember__content">
+      <div class="content" v-html="$prismic.asHtml(entry.member_description)"></div>
     </div>
   </article>
 </template>
@@ -26,6 +34,23 @@ export default {
 
 <style lang="scss" scoped>
 @import '~assets/styles/mixins';
+.teamMember {
+  align-items: center;
+  &.align-right {
+    .column:first-of-type {
+      order: 2
+    }
+    .column:last-of-type {
+      order: 1
+    }
+  }
+  &__content {
+    padding: 1rem 2rem 2rem;
+    @include mobile () {
+      padding: 1rem;
+    }
+  }
+}
 .teamCard {
   position: relative;
   display: grid;
@@ -47,7 +72,7 @@ export default {
         z-index: 1;
         display: block;
         background: inherit;
-        @include overlay()
+        @include overlay();
         transition: all 0.5s ease;
       }
       img {

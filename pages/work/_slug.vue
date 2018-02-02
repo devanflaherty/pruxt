@@ -4,43 +4,7 @@
 
     <section class="hero" v-if="entry.work_video.html">
       <div class="hero-body">
-        <div class="hero-container container">
-          <responsiveVideo
-            v-if="entry.work_video"
-            :embed="entry.work_video" 
-            v-scroll-reveal="{duration: 1000, scale: 1, distance: '-200px'}"/>
-        </div>
-      </div>
-    </section>
-
-    <section class="section work-info">
-      <div class="container">
-        <div class="columns flex-center">
-          <div class="column is-10">
-            <h2 class="is-size-1">{{$prismic.asText(entry.title)}}</h2>
-
-            <div class="columns">
-              <div class="column is-6">
-                <div class="work-approach content"
-                  v-if="entry.approach.length > 0"
-                  v-html="$prismic.asHtml(entry.approach)"
-                  v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
-                </div>
-
-                <div class="column is-6">
-                  <div class="director roster-member" v-for="(member, index) in entry.work_roster" :key="index">
-                    <h6>{{member.member_position}}</h6>
-                      <nuxt-link :to="$prismic.asLink(member.member_link)" v-if="member.member_link.id">
-                        <span>{{member.member_name}}</span>
-                      </nuxt-link>
-                      <span v-else>{{member.member_name}}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
+        <div class="hero-container container"></div>
       </div>
     </section>
 
@@ -52,7 +16,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-// import { beforeEnter, enter, leave } from '~/mixins/page-transitions'
+import { beforeEnter, enter, leave } from '~/mixins/page-transitions'
 // import WorkHero from '~/components/work/workHero'
 
 export default {
@@ -80,14 +44,14 @@ export default {
   // components: {
   //   WorkHero
   // },
-  // transition: {
-  //   name: 'page',
-  //   mode: 'out-in',
-  //   css: false,
-  //   beforeEnter,
-  //   enter,
-  //   leave
-  // },
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    css: false,
+    beforeEnter,
+    enter,
+    leave
+  },
   async asyncData ({ app, params, store }) {
     let entry = await store.dispatch('work/getWorkPost', params.slug)
     return {
@@ -95,8 +59,12 @@ export default {
       entry: entry.data
     }
   },
+  data () {
+    return {
+      nextPost: null
+    }
+  },
   computed: {
-    ...mapGetters('site', ['breakpoint']),
     seoTitle () {
       if (this.entry.meta_title > 0) {
         return this.entry.meta_title
@@ -116,14 +84,30 @@ export default {
       return 'https://stfrd.com' + this.$route.fullPath
     }
   },
-  created () {
-    this.$store.dispatch('site/toggleLoading', true)
+  methods: {
+    async getNextPost () {
+      if (this.nextPost === null) {
+        this.nextPost = await this.$store.dispatch({
+          type: 'work/getAdjacentPost',
+          id: this.document.id,
+          dir: ''
+        })
+      } else if (this.nextPost === undefined) {
+        this.nextPost = await this.$store.dispatch({
+          type: 'work/getAdjacentPost',
+          id: this.document.id,
+          dir: 'desc'
+        })
+      }
+    }
   },
   beforeMount () {
     this.setColors(this.entry.page_color, this.entry.primary_color, this.entry.secondary_color)
   },
   mounted () {
     if (this.document) {
+      this.getNextPost()
+      
       this.$store.dispatch('site/toggleNavVis', true)
       this.$store.dispatch('site/toggleLoading', false)
 

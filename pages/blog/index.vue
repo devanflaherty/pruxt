@@ -7,18 +7,19 @@
 </template>
 
 <script>
-import blogTemplate from '~/components/pageTemplates/blog'
+import blogTemplate from '~/components/pagePartials/blog'
+import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
   name: 'blogPage',
-  // transition: {
-  //   name: 'page',
-  //   mode: 'out-in',
-  //   css: false,
-  //   beforeEnter,
-  //   enter,
-  //   leave
-  // },
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    css: false,
+    beforeEnter,
+    enter,
+    leave
+  },
   head () {
     return {
       title: this.seoTitle,
@@ -44,13 +45,17 @@ export default {
     blogTemplate
   },
   async asyncData ({ app, params, error, store }) {
-    let page = await store.dispatch('page/getPage', 'blog')
-    // Store Work in Store
-    await store.dispatch('blog/getBlog')
+    try {
+      let page = await store.dispatch('page/getPage', 'blog')
+      // Store Work in Store
+      await store.dispatch('blog/getBlog')
 
-    return {
-      document: page,
-      page: page.data
+      return {
+        document: page,
+        page: page.data
+      }
+    } catch {
+      error({statusCode: 404, message: `The page you are looking for does not exist. Please add a 'page' with the uid of "blog". Don't forget to change this error!. `, err: err})
     }
   },
   computed: {

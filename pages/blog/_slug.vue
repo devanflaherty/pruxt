@@ -1,24 +1,25 @@
 <template>
   <div id="blogPost" class="page blogPost" v-show="!loading">
 
-    <defaultTemplate :page="entry"/>
+    <contentTemplate :page="entry"/>
     
   </div>
 </template>
 
 <script>
-import defaultTemplate from '~/components/pageTemplates/default'
+import contentTemplate from '~/components/pagePartials/_content'
+import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
   name: 'blogPost',
-  // transition: {
-  //   name: 'page',
-  //   mode: 'out-in',
-  //   css: false,
-  //   beforeEnter,
-  //   enter,
-  //   leave
-  // },
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    css: false,
+    beforeEnter,
+    enter,
+    leave
+  },
   head () {
     return {
       title: this.seoTitle,
@@ -41,14 +42,24 @@ export default {
     }
   },
   components: {
-    defaultTemplate
+    contentTemplate
   },
   async asyncData ({ app, params, error, store }) {
-    let entry = await store.dispatch('page/getBlogPost', params.slug)
+    try {
+      let entry = await store.dispatch('page/getBlogPost', params.slug)
 
+      return {
+        document: entry,
+        entry: entry.data
+      }
+    } catch {
+      error({statusCode: 404, message: `The page you are looking for does not exist.`, err: err})
+    }
+  },
+  data () {
     return {
-      document: entry,
-      entry: entry.data
+      nextPost: null,
+      previousPost: null
     }
   },
   computed: {
@@ -77,14 +88,37 @@ export default {
       return 'https://stfrd.com' + this.$route.fullPath
     }
   },
-  created () {
-    this.$store.dispatch('site/toggleLoading', true)
+  methods: {
+    async getNextPost () {
+      if (this.nextPost === null) {
+        this.nextPost = await this.$store.dispatch({
+          type: 'blog/getAdjacentPost',
+          id: this.document.id,
+          dir: ''
+        })
+      } else if (this.nextPost === undefined) {
+        this.nextPost = await this.$store.dispatch({
+          type: 'blog/getAdjacentPost',
+          id: this.document.id,
+          dir: 'desc'
+        })
+      }
+    },
+    async getPreviousPost () {
+      this.previousPost = await this.$store.dispatch({
+        type: 'blog/getAdjacentPost',
+        id: this.document.id,
+        dir: 'desc'
+      })
+    }
   },
   beforeMount () {
     this.setColors(this.entry.page_color, this.entry.primary_color, this.entry.secondary_color)
   },
   mounted () {
     if (this.document) {
+      this.getNextPost()
+      
       this.$store.dispatch('site/toggleNavVis', true)
       this.$store.dispatch('site/toggleLoading', false)
 

@@ -1,17 +1,21 @@
 <template>
   <section id="home" class="page">
+    
     <pageHeader :headline="home.hero_headline" :heroImage="home.hero_image" />
     
+    <!-- <workList :work="home.featured_work" class="padding-large"/> -->
     
   </section>
 </template>
 
 <script>
 import pageHeader from '~/components/pageHeader'
+import workList from '~/components/work/workList'
 
 export default {
   components: {
-    pageHeader
+    pageHeader,
+    workList
   },
   async asyncData ({ store, error }) {
     try {
@@ -35,9 +39,6 @@ export default {
       ticking: false
     }
   },
-  created () {
-    this.$store.dispatch('site/toggleLoading', true)
-  },
   beforeMount () {
     this.setColors('Dark', '#e51717', '#242424')
   },
@@ -56,4 +57,8 @@ export default {
 
 <style scoped lang="scss">
 @import '~assets/styles/mixins';
+.padding-large {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
 </style>

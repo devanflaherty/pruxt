@@ -1,7 +1,7 @@
 <template>
   <div :id="document.uid" class="page" :class="contrast" v-show="!loading">
 
-    <defaultTemplate :page="page"/>
+    <contentTemplate :page="page"/>
 
     <component :is="template + 'Template'" :page="page" v-if="template !== 'default'" />
     
@@ -9,13 +9,22 @@
 </template>
 
 <script>
-import defaultTemplate from '~/components/pageTemplates/default'
-import teamTemplate from '~/components/pageTemplates/team'
-import careersTemplate from '~/components/pageTemplates/careers'
-import contactTemplate from '~/components/pageTemplates/contact'
+import contentTemplate from '~/components/pagePartials/_content'
+import teamTemplate from '~/components/pagePartials/team'
+import tagTemplate from '~/components/pagePartials/tag'
+import contactTemplate from '~/components/pagePartials/contact'
+import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
   name: 'page',
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    css: false,
+    beforeEnter,
+    enter,
+    leave
+  },
   head () {
     return {
       title: this.seoTitle,
@@ -38,9 +47,9 @@ export default {
     }
   },
   components: {
-    defaultTemplate,
+    contentTemplate,
     teamTemplate,
-    careersTemplate,
+    tagTemplate,
     contactTemplate
   },
   async asyncData ({ app, params, error, store }) {
@@ -50,8 +59,8 @@ export default {
       // Make async call depending on 'page template'
       if (page.data.page_template === 'team') {
         await store.dispatch('team/getTeam')
-      } else if (page.data.page_template === 'careers') {
-        await store.dispatch('blog/getCareers')
+      } else if (page.data.page_template === 'tag') {
+        await store.dispatch('blog/getPostsByTag')
       }
       return {
         document: page,
@@ -85,11 +94,8 @@ export default {
       return this.page.hero_image.large.url
     },
     seoUrl () {
-      return 'https://stfrd.com' + this.$route.fullPath
+      return 'https://pruxt.com' + this.$route.fullPath
     }
-  },
-  created () {
-    this.$store.dispatch('site/toggleLoading', true)
   },
   beforeMount () {
     this.setColors(this.page.page_color, this.page.primary_color, this.page.secondary_color)

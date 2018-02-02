@@ -8,7 +8,7 @@
           class="column slice__columnedContent__column" 
           :class="[offset(column.offset), layout(column.layout), mobileHide(column.mobile_hide)]" 
           v-for="(column, index) in slice.items" :key="index"
-          v-scroll-reveal="{duration: 2000, scale: 0, distance: '60px', delay: index * 250}">
+          v-scroll-reveal="{duration: 1000, scale: 0, distance: '60px', delay: index * 250}">
             <div v-if="column.content_body.length > 0" class="content" :class="textSize(column.p_text_size)" v-html="$prismic.asHtml(column.content_body)"></div>
         </div>
       </div>
@@ -47,7 +47,7 @@ export default {
       }
     },
     mobileHide (bool) {
-      if (bool) {
+      if (bool === false) {
         return 'is-hidden-mobile'
       }
     },

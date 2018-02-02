@@ -2,7 +2,7 @@
   <article class="workList section">
     <div class="container">
       <div class="columns is-multiline">
-        <template v-if="$route.name === 'home'">
+        <template v-if="$route.name === 'index'">
           <workCard class="column is-4" v-for="(post, i) in work" :key="i" :post="post.work_post"/>
         </template>
         <template v-else>

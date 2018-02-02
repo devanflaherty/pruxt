@@ -1,22 +1,21 @@
 <template>
   <article class="section slice__highlight">
     <div class="container">
-      <div class="columns flex-align-middle">
-        
+      <div class="columns flex-align-middle">        
         <div class="column is-5 slice__highlight__textColumn" :class="textOrder">
           <div class="slice__highlight__textColumn__body"
-            v-scroll-reveal="{duration: 2000, scale: 0, distance: '60px', delay: 250}">
+            v-scroll-reveal="{duration: 1000, scale: 0, distance: '60px'}">
             <div class="slice__highlight__textColumn__body__content content" v-html="$prismic.asHtml(highlight.highlight_body)"></div>
           </div>
         </div>
 
         <div class="column is-7 slice__highlight__mediaColumn" :class="mediaOrder">
           <div class="slice__highlight__mediaColumn__media"
-            v-scroll-reveal="{duration: 2000, scale: 0, distance: '60px'}">
+            v-scroll-reveal="{duration: 1000, scale: 0, distance: '60px', delay: 500}">
 
-              <videoEmbed :embed="highlight.highlight_embed" v-if="highlight.highlight_embed.html" />
+              <responsiveEmbed :embed="highlight.highlight_embed" v-if="highlight.highlight_embed.html" />
                         
-              <img :src="highlight.highlight_thumbnail.url" v-else />
+              <img class="lazy" :width="highlight.highlight_thumbnail.dimensions.width" :height="highlight.highlight_thumbnail.dimensions.height" v-lazy="highlight.highlight_thumbnail.url" v-else />
 
           </div>
         </div>
@@ -36,14 +35,14 @@ export default {
   computed: {
     mediaOrder () {
       return {
-        'is-first': this.highlight.highlight_alignment === 'Left',
-        'is-second': this.highlight.highlight_alignment === 'Right'
+        'is-first': this.highlight.highlight_placement === 'Left',
+        'is-second': this.highlight.highlight_placement === 'Right'
       }
     },
     textOrder () {
       return {
-        'is-second': this.highlight.highlight_alignment === 'Left',
-        'is-first': this.highlight.highlight_alignment === 'Right'
+        'is-second': this.highlight.highlight_placement === 'Left',
+        'is-first': this.highlight.highlight_placement === 'Right'
       }
     }
   }
