@@ -81,7 +81,7 @@ export const actions = {
     let ctx = await dispatch('setCtx', null, {root: true})
     let taggedPosts = await ctx.api.query([
       this.$prismic.predicates.at('document.type', 'blog_post'),
-      this.$prismic.predicates.any('document.tags', [tag])
+      this.$prismic.predicates.any('document.tags', tag)
     ])
 
     commit('SET_BLOG', taggedPosts)

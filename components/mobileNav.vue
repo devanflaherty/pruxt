@@ -42,7 +42,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  @include mobile () {
+  @include touch () {
     display: block;
   }
   h6 {
@@ -54,8 +54,9 @@ export default {
     background: rgba($black, 0.5);
     display: block;
     position: fixed;
-    right: -100%;
+    left: 0;
     top: 0;
+    opacity: 0;
     width: 100%;
     height: 100%;
     transition: all .5s ease;
@@ -70,6 +71,9 @@ export default {
     width: 50%;
     height: 100%;
     transition: all .5s 0.25s ease;
+    @include mobile () {
+      width: 100%;
+    }
   }
   &__wrap {
     z-index: 10;
@@ -136,11 +140,12 @@ export default {
   &--is-active {
     visibility: visible;
     
-    .mobileNav__wrap, &::before, &::after {
+    .mobileNav__wrap, &::after {
       right: 0;
     }
     // Transitions In
     &::before {
+      opacity: 1;
       transition: all 0.5s ease;
     }
     .mobileNav__wrap {

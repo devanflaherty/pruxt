@@ -3,7 +3,7 @@
     
     <pageHeader :headline="page.hero_headline" :bgImage="page.hero_image" :paraImage="page.parallax_image" :video="page.hero_mp4" />
 
-    <newsTemplate :page="page" />
+    <blogTemplate :page="page" />
     
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
     try {
       let page = await store.dispatch('page/getPage', 'news')
       // Store Work in Store
-      await store.dispatch('news/getNews')
+      await store.dispatch('blog/filterPostByTag', [params.tag])
 
       return {
         document: page,

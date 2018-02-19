@@ -1,23 +1,24 @@
 <template>
-  <section id="workPost" class="page workPost" v-show="!loading">
+  <section id="workPost" class="page workPost">
     <!-- <WorkHero :class="{'add-margin': margin === 'marginHero'}" :entry="entry" /> -->
-
-    <section class="hero" v-if="entry.work_video.html">
-      <div class="hero-body">
-        <div class="hero-container container"></div>
-      </div>
-    </section>
-
+    <pageHeader :headline="entry.title" :bgImage="entry.hero_image" :excerpt="entry.excerpt" />
+    
     <!-- Repeatable Slices -->
     <sliceLoop :slices="entry.slices" />
+
+    <workResults :resultsHeadline="entry.results_headline" :resultsText="entry.results_text" :results="entry.result_numbers" v-if="entry.result_numbers.length" />
+
+    <transition name="slide-up">
+      <next v-if="nextPost" :nextLabel="$prismic.asText(nextPost.data.title)" nextPreHeading="Next" :nextLink="`/news/${nextPost.uid}`" :nextFrontColor="nextPost.data.primary_color" :nextBackColor="nextPost.data.secondary_color" />
+    </transition>
 
   </section>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import { beforeEnter, enter, leave } from '~/mixins/page-transitions'
-// import WorkHero from '~/components/work/workHero'
+import workResults from '~/components/work/workResults'
+import { beforeEnter, enter, leave } from '~/mixins/transitions'
+import pageHeader from '~/components/pageHeader'
 
 export default {
   head () {
@@ -41,9 +42,10 @@ export default {
       ]
     }
   },
-  // components: {
-  //   WorkHero
-  // },
+  components: {
+    workResults,
+    pageHeader
+  },
   transition: {
     name: 'page',
     mode: 'out-in',
@@ -52,11 +54,15 @@ export default {
     enter,
     leave
   },
-  async asyncData ({ app, params, store }) {
-    let entry = await store.dispatch('work/getWorkPost', params.slug)
-    return {
-      document: entry,
-      entry: entry.data
+  async asyncData ({ app, params, store, error }) {
+    try {
+      let entry = await store.dispatch('work/getWorkPost', params.slug)
+      return {
+        document: entry,
+        entry: entry.data
+      }
+    } catch (err) {
+      error({statusCode: 404, message: `The page you are looking for does not exist. `, err: err})
     }
   },
   data () {
@@ -86,18 +92,14 @@ export default {
   },
   methods: {
     async getNextPost () {
-      if (this.nextPost === null) {
-        this.nextPost = await this.$store.dispatch({
-          type: 'work/getAdjacentPost',
-          id: this.document.id,
-          dir: ''
-        })
-      } else if (this.nextPost === undefined) {
-        this.nextPost = await this.$store.dispatch({
-          type: 'work/getAdjacentPost',
-          id: this.document.id,
-          dir: 'desc'
-        })
+      this.nextPost = await this.$store.dispatch({
+        type: 'work/getAdjacentPost',
+        id: this.document.id,
+        dir: 'desc'
+      })
+
+      if (this.nextPost === undefined) {
+        // this.nextPost = await this.$store.dispatch('work/getFirstPost')
       }
     }
   },
@@ -107,7 +109,7 @@ export default {
   mounted () {
     if (this.document) {
       this.getNextPost()
-      
+
       this.$store.dispatch('site/toggleNavVis', true)
       this.$store.dispatch('site/toggleLoading', false)
 

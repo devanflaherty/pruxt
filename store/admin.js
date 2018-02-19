@@ -11,6 +11,7 @@ export const state = () => ({
     footer_widget: {}
   },
   contact: '',
+  contactInfo: '',
   social: []
 })
 
@@ -27,8 +28,11 @@ export const getters = {
   footer: state => {
     return state.footer
   },
-  contact: state => {
+  contactEmail: state => {
     return state.contact
+  },
+  contactInfo: state => {
+    return state.contactInfo
   },
   social: state => {
     return state.social
@@ -47,10 +51,11 @@ export const mutations = {
 
     // SET FOOTER
     state.footer.footer_menu = admin.footer_menu
-    state.footer.footer_menu = admin.footer_widget
+    state.footer.footer_widget = admin.footer_widget
 
     // SET CONTACT
     state.contact = admin.contact_email
+    state.contactInfo = admin.contact_info
 
     // SET SOCIAL
     state.social = admin.social

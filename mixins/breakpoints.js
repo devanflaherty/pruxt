@@ -44,7 +44,7 @@ const breakpoints = {
         // set a timeout to un-throttle
         setTimeout(() => {
           throttled = false
-        }, 150)
+        }, 75)
       }
     }
   }

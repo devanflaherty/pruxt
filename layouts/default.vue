@@ -1,7 +1,9 @@
 <template>
   <div class="main">
     <transition name="fade-in">
-      <div id="loader" v-if="loading" class="home-loading has-text-white is-size-1"><h1><span class="loader"></span></h1></div>
+      <div id="loader" v-if="loading">
+        <div class="loader"></div>
+      </div>
     </transition>
     <siteNav />
     <nuxt/>
@@ -23,7 +25,23 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  .navbar {
+    flex: 0 1 auto;
+  }
+  .page {
+    flex: 1 0 auto;
+    min-height: 100vh;
+  }
+  .footer {
+    flex: 0 1 auto;
+  }
+}
+
 .wio-link {
   position: absolute;
   z-index: 50;
@@ -39,21 +57,16 @@ export default {
 
 #loader {
   position: fixed;
-  z-index: 100;
+  z-index: 500;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  left: 0; top: 0;
-  h1 {
-    color: black;
-    font-weight: 800;
-    span {
-      font-size: 44px!important;
-      color: black;
-      display: inline-block;
-    }
+  left: 0; top: 0; bottom: 0; right: 0;
+  .loader {
+    width: 40px;
+    height: 40px;
   }
 }
 </style>

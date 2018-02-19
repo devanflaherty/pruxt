@@ -1,18 +1,21 @@
 <template>
-  <div :id="document.uid" class="page" :class="contrast" v-show="!loading">
+  <div :id="document.uid" class="page" :class="contrast">
+
+    <pageHeader :headline="page.hero_headline" :bgImage="page.hero_image" :paraImage="page.parallax_image" :video="page.hero_mp4" />
 
     <contentTemplate :page="page"/>
 
     <component :is="template + 'Template'" :page="page" v-if="template !== 'default'" />
+
+    <next v-if="page.next_label" :nextLabel="page.next_label" :nextPreHeading="page.next_pre_heading" :nextLink="page.next_link" :nextFrontColor="page.next_front_color" :nextBackColor="page.next_back_color" />
     
   </div>
 </template>
 
 <script>
+import pageHeader from '~/components/pageHeader'
 import contentTemplate from '~/components/pagePartials/_content'
-import teamTemplate from '~/components/pagePartials/team'
 import tagTemplate from '~/components/pagePartials/tag'
-import contactTemplate from '~/components/pagePartials/contact'
 import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
@@ -47,21 +50,15 @@ export default {
     }
   },
   components: {
+    pageHeader,
     contentTemplate,
-    teamTemplate,
-    tagTemplate,
+    careersTemplate,
     contactTemplate
   },
   async asyncData ({ app, params, error, store }) {
     try {
       let page = await store.dispatch('page/getPage', params.page)
 
-      // Make async call depending on 'page template'
-      if (page.data.page_template === 'team') {
-        await store.dispatch('team/getTeam')
-      } else if (page.data.page_template === 'tag') {
-        await store.dispatch('blog/getPostsByTag')
-      }
       return {
         document: page,
         page: page.data,
@@ -94,7 +91,7 @@ export default {
       return this.page.hero_image.large.url
     },
     seoUrl () {
-      return 'https://pruxt.com' + this.$route.fullPath
+      return 'https://stfrd.com' + this.$route.fullPath
     }
   },
   beforeMount () {

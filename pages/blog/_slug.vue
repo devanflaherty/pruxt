@@ -1,17 +1,24 @@
 <template>
-  <div id="blogPost" class="page blogPost" v-show="!loading">
+  <div id="newsPost" class="page newsPost">
+
+    <pageHeader :headline="entry.hero_headline" :bgImage="entry.hero_image" />
 
     <contentTemplate :page="entry"/>
+
+    <transition name="slide-up">
+      <next v-if="nextPost" :nextLabel="$prismic.asText(nextPost.data.title)" nextPreHeading="Next" :nextLink="`/news/${nextPost.uid}`" :nextFrontColor="nextPost.data.primary_color" :nextBackColor="nextPost.data.secondary_color" />
+    </transition>
     
   </div>
 </template>
 
 <script>
-import contentTemplate from '~/components/pagePartials/_content'
+import pageHeader from '~/components/pageHeader'
+import contentTemplate from '~/components/pageTemplates/_content'
 import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
-  name: 'blogPost',
+  name: 'newsPost',
   transition: {
     name: 'page',
     mode: 'out-in',
@@ -42,18 +49,19 @@ export default {
     }
   },
   components: {
+    pageHeader,
     contentTemplate
   },
   async asyncData ({ app, params, error, store }) {
     try {
-      let entry = await store.dispatch('page/getBlogPost', params.slug)
+      let entry = await store.dispatch('news/getNewsPost', params.slug)
 
       return {
         document: entry,
         entry: entry.data
       }
-    } catch {
-      error({statusCode: 404, message: `The page you are looking for does not exist.`, err: err})
+    } catch (err) {
+      error({statusCode: 404, message: `The page you are looking for does not exist. `, err: err})
     }
   },
   data () {
@@ -90,23 +98,18 @@ export default {
   },
   methods: {
     async getNextPost () {
-      if (this.nextPost === null) {
-        this.nextPost = await this.$store.dispatch({
-          type: 'blog/getAdjacentPost',
-          id: this.document.id,
-          dir: ''
-        })
-      } else if (this.nextPost === undefined) {
-        this.nextPost = await this.$store.dispatch({
-          type: 'blog/getAdjacentPost',
-          id: this.document.id,
-          dir: 'desc'
-        })
+      this.nextPost = await this.$store.dispatch({
+        type: 'news/getAdjacentPost',
+        id: this.document.id,
+        dir: 'desc'
+      })
+      if (this.nextPost === undefined) {
+        this.nextPost = await this.$store.dispatch('news/getFirstPost')
       }
     },
     async getPreviousPost () {
       this.previousPost = await this.$store.dispatch({
-        type: 'blog/getAdjacentPost',
+        type: 'news/getAdjacentPost',
         id: this.document.id,
         dir: 'desc'
       })
@@ -118,7 +121,7 @@ export default {
   mounted () {
     if (this.document) {
       this.getNextPost()
-      
+
       this.$store.dispatch('site/toggleNavVis', true)
       this.$store.dispatch('site/toggleLoading', false)
 

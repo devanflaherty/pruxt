@@ -90,5 +90,19 @@ export const actions = {
     )
 
     return adj.results[0]
+  },
+
+  async getFirstPost ({dispatch}) {
+    let ctx = await dispatch('setCtx', null, {root: true})
+
+    let first = await ctx.api.query(
+      this.$prismic.predicates.at('document.type', 'work_post'),
+      {
+        orderings: `[my.work_post.post_position desc, my.work_post.title desc]`,
+        pageSize: 1
+      }
+    )
+
+    return first
   }
 }

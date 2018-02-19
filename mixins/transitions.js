@@ -9,7 +9,7 @@ export const beforeEnter = function (el, done) {
 
 export const enter = function (el, done) {
   let enter = new TimelineMax()
-  enter.to(el, 0.66, {
+  enter.to(el, 0.5, {
     autoAlpha: 1
   }).addCallback(() => {
     done()

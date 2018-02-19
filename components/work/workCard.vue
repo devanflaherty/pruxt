@@ -55,6 +55,8 @@ export default {
     word-spacing: 99999px;
     display: block;
     z-index: -1;
+    position: absolute;
+    top:0;
     @include mobile () {
       font-size: 4.5rem;
     }
@@ -65,20 +67,28 @@ export default {
       font-size: 3.5rem;
     }
     @include widescreen () {
-      font-size: 4.5rem;
+      font-size: 3.75rem;
     }
   }
   &__link {
     position: relative;
     display: block;
-    margin: auto auto auto 2rem;
+    margin: 8rem auto auto 2rem;
     width: 80%;
     visibility: hidden;
+    &:hover {
+      .workCard__link__thumbnail {
+        transform: scale(1.05);
+      }
+    }
     &__thumbnail {
       box-shadow: 0 12px 44px 0 rgba(0,0,0,0.24);
       margin-bottom: 2rem;
+      transition: transform .5s ease;
       img {
         display: block;
+        width: 100%;
+        height: auto;
       }
     }
     &__details {

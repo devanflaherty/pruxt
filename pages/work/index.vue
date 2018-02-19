@@ -1,5 +1,7 @@
 <template>
-  <div id="workArchive" class="page workArchive" :class="contrast" v-show="!loading">
+  <div id="workArchive" class="page workArchive" :class="contrast">
+    
+    <pageHeader :headline="page.hero_headline" :bgImage="page.hero_image" :paraImage="page.parallax_image" :video="page.hero_mp4"/>
 
     <contentTemplate :page="page"/>
 
@@ -9,8 +11,9 @@
 </template>
 
 <script>
-import contentTemplate from '~/components/pagePartials/_content'
-import workTemplate from '~/components/pagePartials/work'
+import pageHeader from '~/components/pageHeader'
+import contentTemplate from '~/components/pageTemplates/_content'
+import workTemplate from '~/components/pageTemplates/work'
 import {beforeEnter, enter, leave} from '~/mixins/transitions'
 
 export default {
@@ -45,6 +48,7 @@ export default {
     }
   },
   components: {
+    pageHeader,
     contentTemplate,
     workTemplate
   },
@@ -60,7 +64,7 @@ export default {
         template: page.data.page_template
       }
     } catch (err) {
-      error({statusCode: 404, message: `The page you are looking for does not exist. Please add a 'page' with the uid of "work". Don't forget to change this error!`, err: err})
+      error({statusCode: 404, message: `The page you are looking for does not exist. Please add a 'page' with the uid of "work". `, err: err})
     }
   },
   computed: {

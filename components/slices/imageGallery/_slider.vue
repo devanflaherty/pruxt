@@ -7,8 +7,6 @@
         <div class="swiper-slide slice__gallery__container__wrapper__slide" v-for="(slide, index) in slides" :key="index">
           
           <div data-swiper-parallax="25%" class="slice__gallery__container__wrapper__slide__image" :style="`background-image: url(${slide.gallery_image.large.url})`">
-            {{slides[activeSlide].slide_title}}/
-            {{slides[activeSlide].slide_caption}}
           </div>
 
         </div>

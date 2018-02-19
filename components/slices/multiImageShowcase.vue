@@ -61,8 +61,10 @@ export default {
       border-radius: 6px;
       box-shadow: 0 0 40px 1px rgba(0, 0, 0, .2);
       @include mobile () {
-        width: 280px;
-        max-width: 280px;
+        width: 240px;
+        max-width: 240px;
+        margin-right: 1rem;
+        margin-left: 1rem;
       }
       &__card {
         height: 100%;
